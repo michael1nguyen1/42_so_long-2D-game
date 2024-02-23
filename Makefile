@@ -6,13 +6,13 @@
 #    By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 15:46:54 by linhnguy          #+#    #+#              #
-#    Updated: 2024/02/21 14:13:53 by linhnguy         ###   ########.fr        #
+#    Updated: 2024/02/23 18:42:00 by linhnguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 LIBMLX = MLX42
-HEADERS	= -I ./include -I $(LIBMLX)/include
+HEADERS	= -I $(LIBMLX)/include
 LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -pthread -lm
 LIBFT = libft.a
 LIBFTDIR = libft
@@ -22,10 +22,9 @@ CFLAGS = -Wall -Wextra -Werror -Wunreachable-code -Ofast
 DEBUG_CFLAGS = -fsanitize=address -g3
 SRCS =	so_long.c
 OBJS = $(SRCS:.c=.o)
-AR = ar rcs
 RM = rm -f
 
-all: $(NAME) libmlx
+all: libmlx $(NAME)
 
 $(NAME):$(OBJS)
 	@make -C $(LIBFTDIR)
@@ -33,8 +32,8 @@ $(NAME):$(OBJS)
 	@echo "Program Made"
 
 libmlx:
-	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-	
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4;
+
 debug: re
 	$(CC) $(OBJS) $(LIBS) $(HEADERS) $(DEBUG_CFLAGS) $(LIBFTDIR)/$(LIBFT) -o $(NAME)
 
@@ -48,6 +47,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	rm -rf $(LIBMLX)/build/libmlx42.a
 	@make -C $(LIBFTDIR) fclean
 	@echo "Fully Cleaned"
 

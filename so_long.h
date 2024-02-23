@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:53:41 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/02/21 14:43:13 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:25:29 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 
 typedef struct s_struct
 {
-	int	i;
+	bool	C;
+	bool	P;
+	bool	E;
 	
-} t_struct;
+} t_check;
 
 #endif
