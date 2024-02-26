@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:51:15 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/02/23 18:24:33 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/02/26 18:23:22 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,114 @@ int array_len(char **a)
 	return(i - 1);
 }
 
-// bool winnable(char **a)
-// {
+void free_array(char **array)
+{
+	int i;
+	i = 0;
 	
-// }
+	while (array[i])
+		free(array[i++]);
+	free(array);
+}
+
+void floodfill(char **copy, t_coor *cur)
+{
+	if(copy[cur->cur_y][cur->cur_x] == 'F' || copy[cur->cur_y][cur->cur_x] == '1' )
+		return ;
+	copy[cur->cur_y][cur->cur_x] = 'F';
+	floodfill(copy, &(t_coor){cur->cur_x - 1, cur->cur_y});
+	floodfill(copy, &(t_coor){cur->cur_x + 1, cur->cur_y});
+	floodfill(copy, &(t_coor){cur->cur_x, cur->cur_y - 1});
+	floodfill(copy, &(t_coor){cur->cur_x, cur->cur_y + 1});
+}
+
+char **copy_array(char **a)
+{
+	int		i;
+	char	**b;
+	
+	i = 0;
+	b = malloc((array_len(a) + 1) * sizeof(char *));
+	if (!b)
+		return (NULL);
+	while (a[i])
+	{
+		b[i] = ft_strdup(a[i]);
+		if (!b[i])
+			return(NULL);
+		i++;
+	}
+	b[i] = NULL;
+	return(b);
+}
+
+t_coor *coordinates(char **a, char object)
+{
+	int		i;
+	int		j;
+	t_coor *coor;
+
+	i = 0;
+	coor = ft_calloc(1 , sizeof(t_coor));
+	while (a[i])
+	{
+		j = 0;
+		while (a[i][j])
+		{
+			if (a[i][j] == object)
+			{
+				coor->cur_x = j;
+				coor->cur_y = i;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (coor);
+}
+bool check_fill(char **map)
+{
+	int i;
+	int	j;
+
+	i = 0;
+	while(map[i])
+	{
+		j = 0;
+		while(map[i][j])
+		{
+			if (map[i][j] == 'P' || map[i][j] == 'E' || map[i][j] == 'C')
+				return (false);
+			j++;
+		}
+		i++;
+	}
+	return (true);
+}
+
+bool winnable(char **a)
+{
+	t_coor		*player;
+	char		object;
+	char		**copy;
+	bool		check;
+
+	object = 'P';
+	player = coordinates(a, object);
+	copy = copy_array(a);
+	if (!copy)
+		return (false);
+	floodfill(copy, player);
+	check = check_fill(copy);
+	if (!check)
+	{
+		write(2, "Error\nSomething on the map is unreachable \xF0\x9F\x98\xB1\n", 39);
+		return (1);
+	}
+	free_array(copy);
+	free(player);
+	return (true);
+}
 
 bool all_there(char **a)
 {
@@ -136,15 +240,12 @@ bool check_map(char **a)
 		return (false);
 	}
 	if (!(all_there(a)))
-		{
+	{
 		write(2, "Error\nSomething is missing\n", 28);
 		return (false);
 	}
-	// if (!(winnable(a)))
-	// {
-	// 	write(2, "Error\n There is a char I don't want", 36);
-	// 	return (false);
-	// }
+	if (!(winnable(a)))
+		return (false);
 	return (true);
 }
 
@@ -174,21 +275,20 @@ char **get_map(int fd)
 	bool	check;
 
 	s1 = get_next_line(fd);
-	s2 = get_next_line(fd);
-	while (s2)
+	while ((s2 = get_next_line(fd)) != NULL)
 	{
 		s3 = ft_strjoin(s1, s2);
 		free(s1);
 		free(s2);
-		s1 = malloc(ft_strlen(s3) * sizeof(char) + 1);
-		s1 = s3;
-		s2 = get_next_line(fd);
+		s1 = ft_strdup(s3);
+		free(s3);
 	}
 	close(fd);
 	check = check_newline(s1);
 	if (!check)
 		return (NULL);
 	array = ft_split(s1, '\n');
+	free(s1);
 	if (!(check_map(array)))
 		return (NULL);
 	return(array);
@@ -208,7 +308,8 @@ int main (int c, char **v)
 			}
 		map = get_map(fd);
 		if (map == NULL)
-			return(-1);
+			return(write(2, "Error\n", 6));
+		free_array(map);
 	}
 	return(0);
 }
