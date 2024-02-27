@@ -6,7 +6,7 @@
 #    By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 15:46:54 by linhnguy          #+#    #+#              #
-#    Updated: 2024/02/23 18:42:00 by linhnguy         ###   ########.fr        #
+#    Updated: 2024/02/27 15:41:29 by linhnguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFTDIR = libft
 CC = cc -g3
 CFLAGS = -Wall -Wextra -Werror -Wunreachable-code -Ofast
 DEBUG_CFLAGS = -fsanitize=address -g3
-SRCS =	so_long.c
+SRCS =	so_long.c game.c
 OBJS = $(SRCS:.c=.o)
 RM = rm -f
 

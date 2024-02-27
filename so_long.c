@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:51:15 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/02/26 18:23:22 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:43:35 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,6 +294,7 @@ char **get_map(int fd)
 	return(array);
 }
 
+
 int main (int c, char **v)
 {
 	int 	fd = 0;
@@ -309,7 +310,7 @@ int main (int c, char **v)
 		map = get_map(fd);
 		if (map == NULL)
 			return(write(2, "Error\n", 6));
+		open_game(map);
 		free_array(map);
 	}
-	return(0);
 }
