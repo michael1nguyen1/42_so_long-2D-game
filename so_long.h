@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:53:41 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/02 19:57:03 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/02 22:00:35 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,14 @@ typedef struct s_coor
 
 typedef struct s_data
 {
-    char    **map;
-    int     potion_count;
-    int     exit_x;
-    int     exit_y;
-    int     map_width;
-    int     map_height;
-} t_data;
-
-typedef struct s_images
-{
+    char            **map;
+    int             potion_count;
+    int             exit_x;
+    int             exit_y;
+    int             map_width;
+    int             map_height;
+    int             player_x;
+    int             player_y;
     mlx_texture_t   *grass1;
     mlx_texture_t   *slime1;
     mlx_texture_t   *potion1;
@@ -57,7 +55,8 @@ typedef struct s_images
     mlx_image_t     *potion;
     mlx_image_t     *tree;
     mlx_image_t     *exit;
-} t_images;
+    mlx_t           *mlx;
+} t_data;
 
 bool		open_game(char **map);
 int			array_len(char **a);

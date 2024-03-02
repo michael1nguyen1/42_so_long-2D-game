@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   game.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/27 15:40:22 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/02 23:04:03 by linhnguy         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "so_long.h"
 
 // static void ft_hook(void* param)
@@ -84,8 +72,8 @@ void put_image(t_data *game_data)
 				mlx_image_to_window(game_data->mlx, game_data->slime, j * INDEX_WIDTH, i * INDEX_HEIGHT);
 			else if (game_data->map[i][j] == 'C')
 				mlx_image_to_window(game_data->mlx, game_data->potion, j * INDEX_WIDTH, i * INDEX_HEIGHT);
-			else if (game_data->map[i][j] == 'E' && game_data->potion_count == 0)
-				mlx_image_to_window(game_data->mlx, game_data->exit, j * INDEX_WIDTH, i * INDEX_HEIGHT);
+			else if (game_data->map[i][j] == game_data->map[game_data->exit_x][game_data->exit_y] && game_data->potion_count == 0)
+				mlx_image_to_window(game_data->mlx, game_data->exit, game_data->exit_x * INDEX_WIDTH, game_data->exit_y * INDEX_HEIGHT);
 			j++;
 		}
 		i++;
@@ -104,7 +92,8 @@ void my_keyhook(mlx_key_data_t keydata, void *game_data)
 	printf("starting potion left :%i\n",data->potion_count);
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
 	{	
-		if (data->map[data->player_y - 1][data->player_x] == '0')
+		
+		if (data->map[data->player_y - 1][data->player_x] == '0' || data->map[data->player_y - 1][data->player_x] == 'E')
 			{
 				data->map[data->player_y][data->player_x] = '0';
 				data->map[data->player_y - 1][data->player_x] = 'P';
@@ -123,7 +112,7 @@ void my_keyhook(mlx_key_data_t keydata, void *game_data)
 	}	
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
 	{
-		if (data->map[data->player_y][data->player_x - 1] == '0')
+		if (data->map[data->player_y][data->player_x - 1] == '0' || data->map[data->player_y - 1][data->player_x] == 'E')
 			{
 				data->map[data->player_y][data->player_x] = '0';
 				data->map[data->player_y][data->player_x - 1] = 'P';
@@ -142,7 +131,7 @@ void my_keyhook(mlx_key_data_t keydata, void *game_data)
 	}
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
 	{
-		if (data->map[data->player_y][data->player_x + 1] == '0')
+		if (data->map[data->player_y][data->player_x + 1] == '0' || data->map[data->player_y - 1][data->player_x] == 'E')
 			{
 				data->map[data->player_y][data->player_x] = '0';
 				data->map[data->player_y][data->player_x + 1] = 'P';
@@ -161,7 +150,7 @@ void my_keyhook(mlx_key_data_t keydata, void *game_data)
 	}
 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
 	{
-		if (data->map[data->player_y + 1][data->player_x] == '0')
+		if (data->map[data->player_y + 1][data->player_x] == '0' || data->map[data->player_y - 1][data->player_x] == 'E')
 			{
 				data->map[data->player_y][data->player_x] = '0';
 				data->map[data->player_y + 1][data->player_x] = 'P';
