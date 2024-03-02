@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:53:41 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/02/27 15:45:40 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:16:26 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include <stdbool.h>
 #include "libft/libft.h"
 #include "MLX42/include/MLX42/MLX42.h"
-#define WIDTH 500
-#define HEIGHT 500
+#define WIDTH 60
+#define HEIGHT 60
 
 typedef struct s_struct
 {
@@ -33,7 +33,29 @@ typedef struct s_coor
 {
 	int		cur_x;
 	int		cur_y;
-} t_coor;
+} t_flood;
+
+typedef struct s_map
+{
+    char    **map;
+    int     potion_count;
+    int     exit_x;
+    int     exit_y;
+} t_map;
+
+typedef struct s_images
+{
+    mlx_texture_t   *grass1;
+    mlx_texture_t   *slime1;
+    mlx_texture_t   *potion1;
+    mlx_texture_t   *tree1;
+    mlx_texture_t   *exit1;
+    mlx_image_t     *grass;
+    mlx_image_t     *slime;
+    mlx_image_t     *potion;
+    mlx_image_t     *tree;
+    mlx_image_t     *exit;
+} t_images;
 
 bool		open_game(char **map);
 int			array_len(char **a);

@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:51:15 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/02/27 15:43:35 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:16:57 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int array_len(char **a)
 	{
 		i++;
 	}
-	return(i - 1);
+	return(i);
 }
 
 void free_array(char **array)
@@ -34,15 +34,15 @@ void free_array(char **array)
 	free(array);
 }
 
-void floodfill(char **copy, t_coor *cur)
+void floodfill(char **copy, t_flood *cur)
 {
 	if(copy[cur->cur_y][cur->cur_x] == 'F' || copy[cur->cur_y][cur->cur_x] == '1' )
 		return ;
 	copy[cur->cur_y][cur->cur_x] = 'F';
-	floodfill(copy, &(t_coor){cur->cur_x - 1, cur->cur_y});
-	floodfill(copy, &(t_coor){cur->cur_x + 1, cur->cur_y});
-	floodfill(copy, &(t_coor){cur->cur_x, cur->cur_y - 1});
-	floodfill(copy, &(t_coor){cur->cur_x, cur->cur_y + 1});
+	floodfill(copy, &(t_flood){cur->cur_x - 1, cur->cur_y});
+	floodfill(copy, &(t_flood){cur->cur_x + 1, cur->cur_y});
+	floodfill(copy, &(t_flood){cur->cur_x, cur->cur_y - 1});
+	floodfill(copy, &(t_flood){cur->cur_x, cur->cur_y + 1});
 }
 
 char **copy_array(char **a)
@@ -65,14 +65,14 @@ char **copy_array(char **a)
 	return(b);
 }
 
-t_coor *coordinates(char **a, char object)
+t_flood *coordinates(char **a, char object)
 {
 	int		i;
 	int		j;
-	t_coor *coor;
+	t_flood *coor;
 
 	i = 0;
-	coor = ft_calloc(1 , sizeof(t_coor));
+	coor = ft_calloc(1 , sizeof(t_flood));
 	while (a[i])
 	{
 		j = 0;
@@ -89,6 +89,7 @@ t_coor *coordinates(char **a, char object)
 	}
 	return (coor);
 }
+
 bool check_fill(char **map)
 {
 	int i;
@@ -111,7 +112,7 @@ bool check_fill(char **map)
 
 bool winnable(char **a)
 {
-	t_coor		*player;
+	t_flood		*player;
 	char		object;
 	char		**copy;
 	bool		check;
@@ -121,6 +122,7 @@ bool winnable(char **a)
 	copy = copy_array(a);
 	if (!copy)
 		return (false);
+	
 	floodfill(copy, player);
 	check = check_fill(copy);
 	if (!check)
@@ -205,7 +207,7 @@ bool walls(char **a)
 
 	str_len = ft_strlen(a[0]);
 	i = 0;
-	len_array = array_len(a);
+	len_array = array_len(a) - 1;
 	while(a[0][i])
 	{
 		if (a[0][i] !=  '1' || a[len_array][i] != '1')
@@ -293,20 +295,29 @@ char **get_map(int fd)
 		return (NULL);
 	return(array);
 }
+int open_file(char *v)
+{
+	int 	fd;
 
+	fd = 0;
+	fd = open(v, O_RDONLY);
+	if(fd == -1)
+	{
+		close(fd);
+		return(write(2, "ERROR\nSomething wrong with the file...", 38));
+	}
+	return (fd);
+}
 
 int main (int c, char **v)
 {
-	int 	fd = 0;
+	int 	fd;
 	char	**map;
+
+	fd = 0;
 	if (c == 2)
 	{
-		fd = open(v[1], O_RDONLY);
-			if(fd == -1)
-			{
-				close(fd);
-				return(write(2, "ERROR\nSomething wrong with the file...", 38));
-			}
+		fd = open_file(v[1]);
 		map = get_map(fd);
 		if (map == NULL)
 			return(write(2, "Error\n", 6));
