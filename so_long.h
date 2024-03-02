@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:53:41 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/02 17:16:26 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/02 19:57:03 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include <stdbool.h>
 #include "libft/libft.h"
 #include "MLX42/include/MLX42/MLX42.h"
-#define WIDTH 60
-#define HEIGHT 60
+#define INDEX_WIDTH 60
+#define INDEX_HEIGHT 60
 
 typedef struct s_struct
 {
@@ -35,13 +35,15 @@ typedef struct s_coor
 	int		cur_y;
 } t_flood;
 
-typedef struct s_map
+typedef struct s_data
 {
     char    **map;
     int     potion_count;
     int     exit_x;
     int     exit_y;
-} t_map;
+    int     map_width;
+    int     map_height;
+} t_data;
 
 typedef struct s_images
 {

@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:51:15 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/02 17:16:57 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/02 19:25:01 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_flood *coordinates(char **a, char object)
 	t_flood *coor;
 
 	i = 0;
-	coor = ft_calloc(1 , sizeof(t_flood));
+	coor = malloc(sizeof(t_flood));
 	while (a[i])
 	{
 		j = 0;
@@ -122,7 +122,6 @@ bool winnable(char **a)
 	copy = copy_array(a);
 	if (!copy)
 		return (false);
-	
 	floodfill(copy, player);
 	check = check_fill(copy);
 	if (!check)
@@ -295,6 +294,7 @@ char **get_map(int fd)
 		return (NULL);
 	return(array);
 }
+
 int open_file(char *v)
 {
 	int 	fd;
@@ -320,7 +320,9 @@ int main (int c, char **v)
 		fd = open_file(v[1]);
 		map = get_map(fd);
 		if (map == NULL)
+		{
 			return(write(2, "Error\n", 6));
+		}
 		open_game(map);
 		free_array(map);
 	}
