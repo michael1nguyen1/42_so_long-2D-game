@@ -6,13 +6,13 @@
 #    By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 15:46:54 by linhnguy          #+#    #+#              #
-#    Updated: 2024/02/29 12:56:11 by linhnguy         ###   ########.fr        #
+#    Updated: 2024/03/06 20:41:16 by linhnguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 LIBMLX = MLX42
-HEADERS	= -I $(LIBMLX)/include
+HEADERS	= -I $(LIBMLX)/include -I ./include
 LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -pthread -lm
 LIBFT = libft.a
 LIBFTDIR = libft
@@ -20,7 +20,9 @@ LIBFTDIR = libft
 CC = cc -g3
 CFLAGS = -Wall -Wextra -Werror -Wunreachable-code -Ofast
 DEBUG_CFLAGS = -fsanitize=address -g3
-SRCS =	so_long.c game.c
+SRCS =	./src/so_long.c ./src/images.c ./src/check_map.c ./src/check_map_utils.c	\
+		 ./src/check_map_utils2.c ./src/game_movement.c ./src/end_game.c			\
+		 ./src/error_handling.c ./src/image_utils.c ./src/str_utils.c
 OBJS = $(SRCS:.c=.o)
 RM = rm -f
 
