@@ -6,29 +6,34 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:40:22 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/06 20:37:25 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/07 18:33:03 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	put_image(t_data *g_data)
+bool	put_image(t_data *g_data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	mlx_image_to_window(g_data->mlx, g_data->grass, 0, 0);
+	if (mlx_image_to_window(g_data->mlx, g_data->grass, 0, 0) == -1)
+		return (false);
 	while (g_data->map[i])
 	{
 		j = 0;
 		while (g_data->map[i][j])
 		{
-			choose_image(g_data, g_data->map[i][j], j, i);
+			if (!choose_image(g_data, g_data->map[i][j], j, i))
+				return (false);
+			else if (g_data->map[i][j] == 'E' && g_data->potion_count != 0)
+				g_data->map[i][j] = '0';
 			j++;
 		}
 		i++;
 	}
+	return (true);
 }
 
 bool	resize(t_data *g_data)
@@ -92,9 +97,14 @@ bool	make_images(t_data *g_data)
 	}
 	if (!resize(g_data))
 	{
+		free_images(g_data);
 		ft_printf("ERROR\n mlx resize failed");
 		return (false);
 	}
-	put_image(g_data);
+	if (!put_image(g_data))
+	{
+		free_images(g_data);
+		return (false);
+	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:51:15 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/06 20:54:55 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:41:43 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	main(int c, char **v)
 	if (fd == -1)
 		return (EXIT_FAILURE);
 	map = get_map(fd);
-	printf("got map\n");
 	if (map == NULL)
 		return (EXIT_FAILURE);
 	if (!open_game(map))

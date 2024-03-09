@@ -6,7 +6,7 @@
 #    By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 15:46:54 by linhnguy          #+#    #+#              #
-#    Updated: 2024/03/06 20:41:16 by linhnguy         ###   ########.fr        #
+#    Updated: 2024/03/07 19:04:15 by linhnguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/l
 LIBFT = libft.a
 LIBFTDIR = libft
 
-CC = cc -g3
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -Wunreachable-code -Ofast
 DEBUG_CFLAGS = -fsanitize=address -g3
 SRCS =	./src/so_long.c ./src/images.c ./src/check_map.c ./src/check_map_utils.c	\
@@ -45,6 +45,7 @@ debug: re
 clean:
 	$(RM) $(OBJS)
 	@make -C $(LIBFTDIR) clean
+	@rm -rf MLX42/build
 	@echo "Cleaned object files"
 
 fclean: clean

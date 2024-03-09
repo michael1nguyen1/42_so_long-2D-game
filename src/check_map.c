@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:26:22 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/06 18:42:57 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:55:08 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,11 @@ bool	winnable(char **a)
 		return (false);
 	floodfill(copy, player);
 	if (!check_fill(copy))
+	{
+		free_array(copy);
+		free(player);
 		return (false);
+	}
 	free_array(copy);
 	free(player);
 	return (true);
