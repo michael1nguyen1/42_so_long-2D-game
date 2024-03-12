@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:53:41 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/06 20:40:56 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:56:25 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_coor
 typedef struct s_data
 {
 	char			**map;
+	int				movements;
 	int				potion_count;
 	int				exit_x;
 	int				exit_y;
@@ -93,16 +94,17 @@ char		*make_string(int fd);
 void		my_keyhook(mlx_key_data_t keydata, void *game_data);
 
 // Images
-void		put_image(t_data *g_data);
+bool		put_image(t_data *g_data, int check);
 bool		make_images(t_data *g_data);
 void		free_images(t_data *game_data);
 void		end_screen(void *game_data);
-void		choose_image(t_data *g_data, char c, int x_coor, int y_coor);
+bool		choose_image(t_data *g_data, char c, int x_coor, int y_coor);
 
 // Game operations
 void		end_game(t_data *game_data);
 
 // Error handling
 bool		print_error(char *str);
+void		*print_error_ptr(char *str);
 
 #endif

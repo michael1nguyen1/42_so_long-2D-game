@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 20:39:57 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/06 20:40:27 by linhnguy         ###   ########.fr       */
+/*   Created: 2024/03/12 22:15:01 by linhnguy          #+#    #+#             */
+/*   Updated: 2024/03/12 22:15:06 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 char	*make_string(int fd)
 {
-	char	*s1;
-	char	*s2;
-	char	*s3;
+	char	*line;
+	char	*next_line;
+	char	*temp;
 
-	s1 = get_next_line(fd);
-	s2 = get_next_line(fd);
-	while (s2)
+	line = NULL;
+	next_line = get_next_line(fd);
+	if (!next_line)
+		return (NULL);
+	while (next_line)
 	{
-		s3 = ft_strjoin(s1, s2);
-		free(s1);
-		free(s2);
-		s1 = ft_strdup(s3);
-		free(s3);
-		s2 = get_next_line(fd);
+		temp = ft_strjoin(line, next_line);
+		free(line);
+		line = temp;
+		free(next_line);
+		if (!line)
+			return (NULL);
+		next_line = get_next_line(fd);
+		if (!next_line)
+			break ;
 	}
-	return (s1);
+	return (line);
 }

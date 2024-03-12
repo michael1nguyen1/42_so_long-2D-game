@@ -6,13 +6,13 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:40:22 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/07 18:33:03 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/12 22:50:38 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-bool	put_image(t_data *g_data)
+bool	put_image(t_data *g_data, int check)
 {
 	int	i;
 	int	j;
@@ -32,6 +32,11 @@ bool	put_image(t_data *g_data)
 			j++;
 		}
 		i++;
+	}
+	if (check == 1)
+	{
+		ft_printf("Number of movements is: %i\n", g_data->movements);
+		g_data->movements++;
 	}
 	return (true);
 }
@@ -71,7 +76,7 @@ static bool	load_png(t_data *g_data)
 	return (true);
 }
 
-static bool	make_texture(t_data *g_data)
+static bool	create_image(t_data *g_data)
 {
 	g_data->end = mlx_texture_to_image(g_data->mlx, g_data->end1);
 	g_data->grass = mlx_texture_to_image(g_data->mlx, g_data->grass1);
@@ -90,7 +95,7 @@ static bool	make_texture(t_data *g_data)
 
 bool	make_images(t_data *g_data)
 {
-	if ((!load_png(g_data)) || (!make_texture(g_data)))
+	if ((!load_png(g_data)) || (!create_image(g_data)))
 	{
 		free_images(g_data);
 		return (false);
@@ -101,7 +106,7 @@ bool	make_images(t_data *g_data)
 		ft_printf("ERROR\n mlx resize failed");
 		return (false);
 	}
-	if (!put_image(g_data))
+	if (!put_image(g_data, 0))
 	{
 		free_images(g_data);
 		return (false);

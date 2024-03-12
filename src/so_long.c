@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:51:15 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/07 17:41:43 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/12 22:14:19 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static char	**get_map(int fd)
 	char	**array;
 
 	str = make_string(fd);
+	if (!str)
+		return (print_error_ptr("Error\nInvalid map!\n"));
 	close(fd);
 	if (!check_duplicates(str))
 	{
@@ -60,10 +62,15 @@ static int	open_file(char *v)
 {
 	int	fd;
 
+	if ((ft_strncmp(&v[ft_strlen(v) - 4], ".ber", 4)) != 0)
+	{
+		ft_printf("ERROR\nNeeds a .ber file to work\n");
+		return (-1);
+	}
 	fd = open(v, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("Error opening file");
+		perror("Error\nOpening file failed\n");
 		close(fd);
 		return (-1);
 	}
@@ -80,7 +87,8 @@ static bool	open_game(char **map)
 			game_data.map_height, "Slime Adventure", true);
 	if (!game_data.mlx)
 		return (false);
-	make_images(&game_data);
+	if (!make_images(&game_data))
+		return (false);
 	mlx_key_hook(game_data.mlx, &my_keyhook, &game_data);
 	mlx_loop_hook(game_data.mlx, &end_screen, &game_data);
 	free_images(&game_data);
@@ -89,17 +97,17 @@ static bool	open_game(char **map)
 	return (true);
 }
 
-int	main(int c, char **v)
+int	main(int argc, char **argv)
 {
 	int		fd;
 	char	**map;
 
-	if (c != 2)
+	if (argc != 2)
 	{
 		write(2, "ERROR\nWhat is wrong with you? 1 map only!\n", 43);
 		return (EXIT_FAILURE);
 	}
-	fd = open_file(v[1]);
+	fd = open_file(argv[1]);
 	if (fd == -1)
 		return (EXIT_FAILURE);
 	map = get_map(fd);

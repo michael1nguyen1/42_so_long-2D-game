@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 20:32:00 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/06 20:35:43 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/12 22:13:47 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ bool	print_error(char *str)
 {
 	ft_printf("%s", str);
 	return (false);
+}
+
+void	*print_error_ptr(char *str)
+{
+	ft_printf("%s", str);
+	return (NULL);
 }
 
 bool	right_size_map(char **map)

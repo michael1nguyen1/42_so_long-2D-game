@@ -6,7 +6,7 @@
 /*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:47:06 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/06 19:05:33 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:22:23 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	initialize_map(char **map, t_data *game_data)
 	int		count;
 
 	count = 0;
+	game_data->movements = 1;
 	game_data->is_end = false;
 	game_data->map = map;
 	game_data->map_width = INDEX_WIDTH * ft_strlen(map[0]);
