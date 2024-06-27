@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: linhnguy <linhnguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:51:15 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/12 22:14:19 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/06/27 13:01:21 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		write(2, "ERROR\nWhat is wrong with you? 1 map only!\n", 43);
+		write(2, "ERROR\nWhat is wrong with you? 1 map only!\n", 42);
 		return (EXIT_FAILURE);
 	}
 	fd = open_file(argv[1]);

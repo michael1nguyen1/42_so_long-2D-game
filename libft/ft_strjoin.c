@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: linhnguy <linhnguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:31:00 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/03/12 17:16:27 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/06/27 13:12:15 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s3)
 		return (NULL);
 	if (s1)
+	{	
 		while (s1[i])
 		{
 			s3[k++] = s1[i++];
 		}
-		i = 0;
+	}
+	i = 0;
 	if (s2)
 	{
 		while (s2[i])

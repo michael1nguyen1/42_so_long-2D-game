@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linhnguy <linhnguy@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: linhnguy <linhnguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 21:50:51 by linhnguy          #+#    #+#             */
-/*   Updated: 2024/01/07 18:37:06 by linhnguy         ###   ########.fr       */
+/*   Updated: 2024/06/27 13:12:52 by linhnguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 static char	*ft_allstrs(char const **s, char c)
 {
-	int			i;
 	char		*out;
 	const char	*tmp;
 	int			substrlen;
 
 	substrlen = 0;
-	i = 0;
 	tmp = *s;
 	while (*tmp)
 	{
