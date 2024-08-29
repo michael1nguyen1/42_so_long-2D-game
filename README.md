@@ -4,8 +4,7 @@
 This is a very simple 2D game that introduced me to the mlx graphics library. This project taught me how to parse mapping files and transfer that layout into png images and how to manipulate the positions of those pixels to create what appears to be movement on the screen. 
 
 ## Installation
--Simple git clone and run "make"
--Once the program is made execute the so_long program with a map.ber file from the maps folder.
+Simply git clone and run "make". Once the program is made execute the so_long program with a map.ber file from the maps folder.
 
 For example:
 ./so_long maps/map.ber 
