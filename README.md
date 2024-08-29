@@ -7,7 +7,7 @@ This is a very simple 2D game that introduced me to the mlx graphics library. Th
 Simply git clone and run "make". Once the program is made execute the so_long program with a map.ber file from the maps folder.
 
 For example:
-```./so_long maps/map.ber 
+```./so_long maps/map.ber```
 
 
 ## Playing The Game
